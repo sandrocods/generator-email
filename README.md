@@ -24,6 +24,9 @@ include 'lib/Class_temp.php';
 ------------
 
 ### How To Use
+
+Example How to Use : https://youtu.be/nioN9MPtOP8
+
 1. Generator Email
 ```php
 <?php
