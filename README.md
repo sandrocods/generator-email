@@ -1,5 +1,6 @@
 ## TempMail CLI
 ###### Library for easy use of generator.email
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/59155826/97783816-ae828600-1bcc-11eb-8ab6-66032831d9ed.gif)
 
 ### Instalation
 Include this code
