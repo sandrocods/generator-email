@@ -30,7 +30,7 @@ Example How to Use : https://youtu.be/nioN9MPtOP8
 1. Generator Email
 ```php
 <?php
-include 'lib/Class_Curl.php';
+include 'lib/Class_temp.php';
 $Get = GenEmail::GetEmail(); // if you want a custom name, add a parameter in the function . Ex : GenEmail::GetEmail('sandrocods')
 print_r($Get);
 ```
@@ -46,7 +46,7 @@ Array
 2. ReadSingleMessage
 ```php
 <?php
-include 'lib/Class_Curl.php';
+include 'lib/Class_temp.php';
 $Get = GenEmail::GetEmail();
 $Read = GenEmail::ReadSingleMessage($Get['name'],$Get['domain']);
 print_r($Read);
@@ -64,7 +64,7 @@ Array
 **Read secret is used to read 1: 1 messages**
 ```php
 <?php
-include 'lib/Class_Curl.php';
+include 'lib/Class_temp.php';
 $Get = GenEmail::GetEmail();
 $Read = GenEmail::ReadSecret($Get['name'],$Get['domain']);
 print_r($Read);
@@ -82,7 +82,7 @@ print_r($Read);
 4. ReadMessagebySecret
 ```php
 <?php
-include 'lib/Class_Curl.php';
+include 'lib/Class_temp.php';
 $Get = GenEmail::GetEmail();
 $Read = GenEmail::ReadSecret($Get['name'],$Get['domain']);
 $Read_one = GenEmail::ReadMessagebySecret($Get['name'],$Get['domain'],$Read['Secret'][0]);
@@ -102,7 +102,7 @@ print_r($Read_one);
 **To make all messages visible**
 ```php
 <?php
-include 'lib/Class_Curl.php';
+include 'lib/Class_temp.php';
 $Get = GenEmail::GetEmail();
 $Read = GenEmail::MarkAllRead($Get['email'],$Get['domain']);
 print_r($Read);
@@ -117,7 +117,7 @@ print_r($Read);
 **To Delete all messages **
 ```php
 <?php
-include 'lib/Class_Curl.php';
+include 'lib/Class_temp.php';
 $Get = GenEmail::GetEmail();
 $Read = GenEmail::DeleteAll($Get['email'],$Get['domain']);
 print_r($Read);
@@ -131,7 +131,7 @@ print_r($Read);
 **To Read all messages in inbox **
 ```php
 <?php
-include 'lib/Class_Curl.php';
+include 'lib/Class_temp.php';
 $Get = GenEmail::GetEmail();
 $Get_secret = GenEmail::ReadAllMessage($Get['name'] , $Get['domain']);
 print_r($Get_secret);
