@@ -8,8 +8,7 @@
 class GenEmail
 {
     const API = 'https://generator.email/';
-    private static function headers($name = null, $domain = null)
-    {
+    private static function headers($name = null, $domain = null){
         $headers_tempm = array();
         $headers_tempm[] = 'Host: generator.email';
         $headers_tempm[] = 'Connection: keep-alive';
@@ -22,15 +21,12 @@ class GenEmail
         $headers_tempm[] = 'Cookie: _ga=GA1.2.727824364.1578704779; _gid=GA1.2.139870167.1578704779; embx=%5B%22'.$name.'%40'.$domain.'%22%5D; surl='.$domain.'%2F%3F'.$name.'';
         return $headers_tempm;
     }
-
-    public static function getStr($string, $start, $end)
-    {
+    public static function getStr($string, $start, $end){
         $str = explode($start, $string);
         $str = explode($end, ($str[1]));
         return $str[0];
     }
-    public static function curl($url, $method = null, $postfields = null, $followlocation = null, $headers = null)
-    {
+    public static function curl($url, $method = null, $postfields = null, $followlocation = null, $headers = null){
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
@@ -72,8 +68,7 @@ class GenEmail
             ),
         );
     }
-    public static function GetEmail($name = null)
-    {
+    public static function GetEmail($name = null){
 
         $get_email = GenEmail::curl(self::API, 'GET', null, '1', null);
         preg_match('/var gasmurl="\/(.*?)\/(.*?)";/', $get_email[2], $value);
@@ -92,8 +87,7 @@ class GenEmail
             );
         }
     }
-    public static function ReadSingleMessage($name = null, $domain = null)
-    {
+    public static function ReadSingleMessage($name = null, $domain = null){
         $read_email = GenEmail::curl(self::API, 'GET', null, '1', GenEmail::headers($name ,$domain));
         return $read_email;
         if (preg_match('/<div class="e7m from_div_45g45gg">(.*?)<\/div>/', $read_email[2], $sender)) {
@@ -110,8 +104,7 @@ class GenEmail
             );
         }
     }
-    public static function ReadSecret($name = null, $domain = null)
-    {
+    public static function ReadSecret($name = null, $domain = null){
         $ReadMultiMessage = GenEmail::curl(self::API, 'GET', null, '1', GenEmail::headers($name ,$domain));
         if (preg_match('/<div class="e7m from_div_45g45gg">(.*?)<\/div>/', $ReadMultiMessage[2], $sender)) {
             preg_match('/<span id="mess_number">(.*?)<\/span>/', $ReadMultiMessage[2], $output_counter);
@@ -127,8 +120,7 @@ class GenEmail
         }
     }
 
-    public static function ReadMessagebySecret($name = null, $domain = null, $secret = null)
-    {   
+    public static function ReadMessagebySecret($name = null, $domain = null, $secret = null){   
         $headers_tempm = array();
         $headers_tempm = GenEmail::headers($name ,$domain);
         $pop = array_pop($headers_tempm);
@@ -148,8 +140,7 @@ class GenEmail
         }
     }
 
-    public static function MarkAllRead($name = null, $domain = null)
-    {
+    public static function MarkAllRead($name = null, $domain = null){
         $read_email = GenEmail::curl(self::API, 'GET', null, '1', GenEmail::headers($name ,$domain));
         $Get_dell = GenEmail::getStr($read_email[2],'{ delll: "','" }');
         $MarkAllRead = GenEmail::curl(self::API.'del_mail.php', 'POST', 'markall='.$Get_dell.'', null, GenEmail::headers($name ,$domain));
@@ -178,4 +169,11 @@ class GenEmail
         return $array;
     }   
 
+    public static function CheckStatus($name = null, $domain = null){
+        $Get_status = GenEmail::curl(self::API.'check_adres_validation3.php','POST','usr='.$name.'&dmn='.$domain.'',null,GenEmail::headers($name ,$domain));
+        return array(
+            "Email" => $name."@".$domain,
+            "Result" => $Get_status[2]
+        );
+    }
 }
